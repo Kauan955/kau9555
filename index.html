@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>História Interativa - Solo Leveling</title>
+    <style>
+        /* Definindo o fundo da página */
+        body {
+            background-image: url('https://dimensaosete.com.br/static/5cb207a9165d79a495c7308e8774b09e/2493a/solo-leveling.webp');
+            background-size: cover; /* A imagem cobrirá toda a tela */
+            background-position: center; /* A imagem será centralizada */
+            color: #fff; /* Cor do texto */
+            font-family: Arial, sans-serif; /* Fonte do texto */
+            margin: 0; /* Remover margens */
+            padding: 0; /* Remover espaçamento */
+            height: 100vh; /* A altura da tela será 100% */
+            transition: background-image 0.5s ease; /* Adicionando transição de fundo */
+        }
+
+        #story {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7); /* Fundo escuro para melhorar a legibilidade */
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        #narrative {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        #choices {
+            margin-top: 20px;
+        }
+
+        button.choice {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button.choice:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div id="story">
+        <h1>Você é Sung Jinwoo, o caçador mais fraco</h1>
+        <p id="narrative">
+            Você acorda em sua casa após um dia de caçadas exaustivas. Seu corpo ainda dói devido aos ferimentos da última missão. 
+            Apesar disso, uma nova mensagem do sistema surge em sua mente:<br><br>
+            <strong>"Nova missão designada: Entre no Portal Classe E"</strong><br>
+            Você se pergunta se deve continuar a viver essa vida de riscos. A fome, as contas e a promessa de proteger sua irmã mais nova são suas maiores motivações. Mas, ao mesmo tempo, a morte parece espreitar a cada escolha errada.
+        </p>
+        <div id="choices">
+            <button class="choice" onclick="choose('choice1')">Aceitar a missão e enfrentar o desafio.</button>
+            <button class="choice" onclick="choose('choice2')">Recusar e descansar por hoje.</button>
+            <button class="choice" onclick="choose('choice3')">Buscar um aliado antes de decidir.</button>
+        </div>
+    </div>
+
+    <script>
+        // Mapeamento dos backgrounds para cada etapa (com a mesma imagem por enquanto)
+        const backgrounds = {
+            initial: "url('https://dimensaosete.com.br/static/5cb207a9165d79a495c7308e8774b09e/2493a/solo-leveling.webp')", 
+            portal: "url('https://dimensaosete.com.br/static/5cb207a9165d79a495c7308e8774b09e/2493a/solo-leveling.webp')",
+            dungeon: "url('https://dimensaosete.com.br/static/5cb207a9165d79a495c7308e8774b09e/2493a/solo-leveling.webp')",
+            caçador: "url('https://dimensaosete.com.br/static/5cb207a9165d79a495c7308e8774b09e/2493a/solo-leveling.webp')",
+            invocacao: "url('https://dimensaosete.com.br/static/5cb207a9165d79a495c7308e8774b09e/2493a/solo-leveling.webp')",
+            aliado: "url('https://dimensaosete.com.br/static/5cb207a9165d79a495c7308e8774b09e/2493a/solo-leveling.webp')",
+            enigmas: "url('https://dimensaosete.com.br/static/5cb207a9165d79a495c7308e8774b09e/2493a/solo-leveling.webp')",
+            boss: "url('https://dimensaosete.com.br/static/5cb207a9165d79a495c7308e8774b09e/2493a/solo-leveling.webp')", 
+            victory: "url('https://dimensaosete.com.br/static/5cb207a9165d79a495c7308e8774b09e/2493a/solo-leveling.webp')"
+        };
+
+        // Função principal para gerenciar as escolhas do jogador
+        function choose(choice) {
+            const narrative = document.getElementById('narrative');
+
+            switch (choice) {
+                case 'choice1': // Caminho inicial - Aceitar a missão
+                    changeBackground('portal');
+                    narrative.innerHTML = "Você entra no portal e percebe que algo está diferente. Uma energia estranha preenche o ar. O que fazer?";
+                    updateChoices([
+                        { text: "Avançar para explorar a origem da energia.", action: "choice1-1" },
+                        { text: "Recusar e voltar para o mundo real.", action: "choice1-2" }
+                    ]);
+                    break;
+
+                case 'choice1-1': // Avançar na dungeon
+                    changeBackground('dungeon');
+                    narrative.innerHTML = "Você encontra um enigma em uma sala misteriosa. Apenas uma resposta correta abrirá o caminho.";
+                    updateChoices([
+                        { text: "Resolver o enigma.", action: "choice1-1-1" },
+                        { text: "Ignorar o enigma e seguir por outro caminho.", action: "choice1-1-2" }
+                    ]);
+                    break;
+
+                case 'choice1-1-1': // Resolver o enigma
+                    changeBackground('enigmas');
+                    narrative.innerHTML = "O enigma é complexo, mas você encontra a solução e avança para uma sala cheia de aliados invocados.";
+                    updateChoices([
+                        { text: "Unir-se aos aliados e enfrentar o chefão.", action: "choice1-1-1-1" },
+                        { text: "Trair os aliados e pegar o tesouro para si.", action: "choice1-1-1-2" }
+                    ]);
+                    break;
+
+                case 'choice1-1-1-1': // Enfrentar o chefão com aliados
+                    changeBackground('boss');
+                    narrative.innerHTML = "O chefão é um cavaleiro colossal com uma aura mortal. Você e seus aliados se preparam para o combate.";
+                    updateChoices([
+                        { text: "Atacar diretamente com todo o poder.", action: "choice1-1-1-1-1" },
+                        { text: "Usar uma estratégia defensiva e observar.", action: "choice1-1-1-1-2" }
+                    ]);
+                    break;
+
+                case 'choice1-1-1-2': // Trair os aliados
+                    changeBackground('escape');
+                    narrative.innerHTML = "Você toma o tesouro e tenta fugir, mas a traição chama a ira dos aliados.";
+                    updateChoices([
+                        { text: "Lutar contra eles.", action: "choice1-1-1-2-1" },
+                        { text: "Tentar negociar a paz.", action: "choice1-1-1-2-2" }
+                    ]);
+                    break;
+
+                case 'choice1-1-1-1-1': // Vitória - Chefão derrotado
+                    changeBackground('victory');
+                    narrative.innerHTML = "Você e seus aliados vencem o chefão e conseguem o tesouro!";
+                    updateChoices([
+                        { text: "Festejar a vitória.", action: "fim1" },
+                        { text: "Ir atrás do próximo desafio.", action: "fim2" }
+                    ]);
+                    break;
+
+                default:
+                    narrative.innerHTML = "Escolha inválida.";
+            }
+        }
+
+        // Função para mudar o fundo da página com base no estado
+        function changeBackground(state) {
+            document.body.style.backgroundImage = backgrounds[state];
+        }
+
+        // Atualiza as opções com base na escolha do jogador
+        function updateChoices(choices) {
+            const choicesDiv = document.getElementById('choices');
+            choicesDiv.innerHTML = '';
+            choices.forEach(choice => {
+                const button = document.createElement('button');
+                button.className = 'choice';
+                button.innerText = choice.text;
+                button.onclick = function() { choose(choice.action) };
+                choicesDiv.appendChild(button);
+            });
+        }
+    </script>
+</body>
+</html>
